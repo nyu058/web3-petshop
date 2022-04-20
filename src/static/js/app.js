@@ -114,6 +114,35 @@ App = {
       });
     });
 
+  },
+
+  addPet : function(){
+    // append pet to json and upload image
+    var form = $("#add_pet_form")
+    var data = JSON.stringify(form.serializeObject());
+    var obj = JSON.parse(localStorage.getItem('../pets.json'));
+    var picture_obj = $('#add_pet_form[name="picture"]')
+    var picture_name = "image/"+
+    console.log(obj)
+    obj.push(data)
+    localStorage.setItem('../pets.json', JSON.stringify(obj));
+
+    // Load pets
+    $.getJSON('../pets.json', function (data) {
+      var petsRow = $('#petsRow');
+      var petTemplate = $('#petTemplate');
+
+      for (i = 0; i < data.length; i++) {
+        petTemplate.find('.panel-title').text(data[i].name);
+        petTemplate.find('img').attr('src', data[i].picture);
+        petTemplate.find('.pet-breed').text(data[i].breed);
+        petTemplate.find('.pet-age').text(data[i].age);
+        petTemplate.find('.pet-location').text(data[i].location);
+        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
+
+        petsRow.append(petTemplate.html());
+      }
+    });
   }
 
 };
@@ -123,3 +152,24 @@ $(function () {
     App.init();
   });
 });
+
+$("#add_pet_form").submit(function(e) {
+  e.preventDefault();
+});
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
