@@ -36,8 +36,10 @@ with open("src/pets.json") as f:
 print("Initializing blockchain with pets data")
 for pet in pets_data:
     contract_instance.addPet(pet['name'], pet['breed'], pet['age'], pet['location'], transact={
-                                    "from": w3.eth.accounts[0]})
+        "from": w3.eth.accounts[0]})
     pet['added_on'] = strftime("%Y-%m-%d %H:%M:%S", localtime())
+    pet['adopted_on'] = 'N/A'
+    pet['adopter'] = 'N/A'
     id = contract_instance.getPetsLen() - 1
     pet['id'] = id
 
@@ -129,8 +131,17 @@ def add_pet():
     filename = f"static/images/{secure_filename(f.filename)}"
     contract_instance.addPet(
         name, breed, age, location, transact={"from": account})
-    pet = {"age": age, "name": name, "picture": filename,
-           "location": location, "breed": breed, "id": contract_instance.getPetsLen() - 1, 'added_on': strftime("%Y-%m-%d %H:%M:%S", localtime())}
+    pet = {
+        "age": age, 
+        "name": name, 
+        "picture": filename,
+        "location": location, 
+        "breed": breed, 
+        "id": contract_instance.getPetsLen() - 1, 
+        'added_on': strftime("%Y-%m-%d %H:%M:%S", localtime()), 
+        'adopted_on': 'N/A', 
+        'adopter': 'N/A'
+        }
     f.save(f"src/{filename}")
     pets_data.append(pet)
     update_stats()
@@ -147,6 +158,8 @@ def adopt():
     for pet in pets_data:
         if pet['id'] in adopted:
             pet['adopted'] = True
+            pet['adopted_on'] = strftime("%Y-%m-%d %H:%M:%S", localtime())
+            pet['adopter'] = account
     update_stats()
     return redirect(url_for("index", account=account))
 

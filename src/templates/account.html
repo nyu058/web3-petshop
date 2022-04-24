@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Crystal's Pet Shop</title>
+
+    <!-- Bootstrap -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table-txn {
+            table-layout: fixed;
+            word-wrap: break-word
+        }
+        .break-word {
+            word-wrap: break-word
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-push-2">
+                <h2 class="text-center">Crystal's Pet Shop</h2>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <a href="/?account={{ curr_account }}">Back to home</a>
+                <br>
+                <h3>Account info for: {{ curr_account }}</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h4>Adopted Pets</h4>
+            </div>
+        </div>
+        <div class="row">
+            {% for pet in my_pets %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+
+                <div class="panel panel-default panel-pet">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ pet["name"] }}</h3>
+                    </div>
+                    <div class="panel-body break-word">
+                        <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center"
+                            style="width: 100%;" src="../{{ pet['picture'] }}" data-holder-rendered="true">
+                        <br /><br />
+                        <strong>Breed</strong>: <span class="pet-breed">{{ pet["breed"] }}</span><br />
+                        <strong>Age</strong>: <span class="pet-age">{{ pet["age"] }}</span><br />
+                        <strong>Location</strong>: <span class="pet-location">{{ pet["location"] }}</span><br /><br />
+                        <strong>Added On</strong>: <span class="pet-location">{{ pet["added_on"] }}</span><br />
+                        <strong>Adopted On</strong>: <span class="pet-location">{{ pet["adopted_on"] }}</span><br />
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <h4>Pets added to the shop</h4>
+            </div>
+        </div>
+        <div class="row">
+            {% for pet in my_added_pets %}
+            <div class="col-sm-6 col-md-4 col-lg-3">
+
+                <div class="panel panel-default panel-pet">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ pet["name"] }}</h3>
+                    </div>
+                    <div class="panel-body break-word">
+                        <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center"
+                            style="width: 100%;" src="../{{ pet['picture'] }}" data-holder-rendered="true">
+                        <br /><br />
+                        <strong>Breed</strong>: <span class="pet-breed">{{ pet["breed"] }}</span><br />
+                        <strong>Age</strong>: <span class="pet-age">{{ pet["age"] }}</span><br />
+                        <strong>Location</strong>: <span class="pet-location">{{ pet["location"] }}</span><br />
+                        <strong>Added On</strong>: <span class="pet-location">{{ pet["added_on"] }}</span><br />
+                        <strong>Adopted On</strong>: <span class="pet-location">{{ pet["adopted_on"] }}</span><br />
+                        <strong>Adopter</strong>: <span class="pet-location">{{ pet["adopter"] }}</span><br />
+                        <br />
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Transactions (Total: {{ transactions|length }})</h3>
+                    </div>
+                    <div class="table-txn">
+                        <table class="table table-txn">
+                            <thead>
+                                <tr>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th colspan="2">Transaction Hash</th>
+                                    <th>Block Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for txn in transactions %}
+                                <tr>
+                                    <td>{{ txn['from'] }}</td>
+                                    <td>{{ txn['to'] }}</td>
+                                    <td colspan="2">{{ txn['hash'] }}</td>
+                                    <td>{{ txn['blockNumber'] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/web3.min.js"></script>
+    <script src="../static/js/truffle-contract.js"></script>
+    <!-- <script src="../static/js/app.js"></script> -->
+</body>
+
+</html>

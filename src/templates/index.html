@@ -14,6 +14,15 @@
     .no-border {
       border: none !important
     }
+
+    .table-txn {
+      table-layout: fixed;
+      word-wrap: break-word
+    }
+
+    .break-word {
+      word-wrap: break-word
+    }
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,57 +68,57 @@
             <h3 class="panel-title">Adding a Pet</h3>
           </div>
           <div class="panel-body">
-            
-              <form id="add_pet_form" action="/pet" enctype="multipart/form-data" method="post">
-                <table class="table">
-                  <tbody>
-                    <tr>
-                      <td class="no-border">
-                        <label for="name">Name: </label>
-                      </td>
-                      <td class="no-border">
-                        <input class="form-control" name="name" placeholder="Pet Name" required>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="no-border">
-                        <label for="breed">Breed: </label>
-                      </td>
-                      <td class="no-border">
-                        <input class="form-control" name="breed" placeholder="Pet's Breed" required>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="no-border">
-                        <label for="age">Age: </label>
-                      </td>
-                      <td class="no-border">
-                        <input type="number" class="form-control" name="age" required>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="no-border">
-                        <label for="location">Location: </label>
-                      </td>
-                      <td class="no-border">
-                        <input class="form-control" name="location" placeholder="Pet's Location" required>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="no-border">
-                        <label for="picture">Picture: </label>
-                      </td>
-                      <td class="no-border">
-                        <input type="file" class="form-control-file" name="picture" accept=".jpg,.gif,.png,jpeg">
-                      </td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-                <input type="hidden" name="account" value="{{ curr_account }}">
-                <button type="submit" class="btn btn-primary">Add Pet</button>
-              </form>
-            
+
+            <form id="add_pet_form" action="/pet" enctype="multipart/form-data" method="post">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="no-border">
+                      <label for="name">Name: </label>
+                    </td>
+                    <td class="no-border">
+                      <input class="form-control" name="name" placeholder="Pet Name" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="no-border">
+                      <label for="breed">Breed: </label>
+                    </td>
+                    <td class="no-border">
+                      <input class="form-control" name="breed" placeholder="Pet's Breed" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="no-border">
+                      <label for="age">Age: </label>
+                    </td>
+                    <td class="no-border">
+                      <input type="number" class="form-control" name="age" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="no-border">
+                      <label for="location">Location: </label>
+                    </td>
+                    <td class="no-border">
+                      <input class="form-control" name="location" placeholder="Pet's Location" required>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="no-border">
+                      <label for="picture">Picture: </label>
+                    </td>
+                    <td class="no-border">
+                      <input type="file" class="form-control-file" name="picture" accept=".jpg,.gif,.png,jpeg">
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <input type="hidden" name="account" value="{{ curr_account }}">
+              <button type="submit" class="btn btn-primary">Add Pet</button>
+            </form>
+
           </div>
         </div>
       </div>
@@ -132,7 +141,7 @@
     <br />
 
     <div id="petsRow" class="row">
-      <h3>Pets Inventory</h3>
+      <h3>Pets Registry</h3>
 
       {% for pet in pets %}
       <div class="col-sm-6 col-md-4 col-lg-3">
@@ -141,16 +150,21 @@
           <div class="panel-heading">
             <h3 class="panel-title">{{ pet["name"] }}</h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body  break-word">
             <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;"
               src="{{ pet['picture'] }}" data-holder-rendered="true">
             <br /><br />
             <strong>Breed</strong>: <span class="pet-breed">{{ pet["breed"] }}</span><br />
             <strong>Age</strong>: <span class="pet-age">{{ pet["age"] }}</span><br />
-            <strong>Location</strong>: <span class="pet-location">{{ pet["location"] }}</span><br /><br />
+            <strong>Location</strong>: <span class="pet-location">{{ pet["location"] }}</span><br />
+            <strong>Added On</strong>: <span class="pet-location">{{ pet["added_on"] }}</span><br />
+            <strong>Adopted On</strong>: <span class="pet-location">{{ pet["adopted_on"] }}</span><br />
+            <strong>Adopter</strong>: <span class="pet-location">{{ pet["adopter"] }}</span><br />
             {% if pet['adopted'] %}
             <button class="btn btn-default btn-adopt" role="button" disabled="true">Adopted</button>
             {% else %}
+            <br>
+            <br>
             <a class="btn btn-default btn-adopt" role="button"
               href="/adopt?id={{ pet['id'] }}&account={{ curr_account }}">Adopt</a>
             {% endif %}
