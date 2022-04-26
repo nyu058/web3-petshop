@@ -32,6 +32,7 @@ contract_instance = w3.eth.contract(
 
 # init blockchain with pet data using account[0]
 with open("src/pets.json") as f:
+    # load initial pets data into cache
     pets_data = json.load(f)
 print("Initializing blockchain with pets data")
 for pet in pets_data:
@@ -143,6 +144,7 @@ def add_pet():
         'adopter': 'N/A'
         }
     f.save(f"src/{filename}")
+    # update cache and statistics
     pets_data.append(pet)
     update_stats()
     return redirect(url_for("index"))
@@ -155,6 +157,7 @@ def adopt():
 
     contract_instance.adopt(id, transact={"from": account})
     adopted = contract_instance.getAllAdoptedPets()
+    # update cache and statistics
     for pet in pets_data:
         if pet['id'] in adopted:
             pet['adopted'] = True
