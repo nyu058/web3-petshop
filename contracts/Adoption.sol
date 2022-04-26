@@ -18,6 +18,7 @@ contract Adoption {
         require(petId >= 0 && petId < allPets.length);
         adoptedPetIds.push(petId);
         adoptions[msg.sender].push(petId);
+        adoptors.push(msg.sender);
         return petId;
     }
 

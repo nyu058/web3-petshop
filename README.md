@@ -1,8 +1,21 @@
-# ASP1050 Project
+# ASP1050 Project -- PetShop.py
+Author: Qi Guo
+
+### Introduction
+Hello! My name is Qi Guo and this is my submission for my final project for the course ASP1050.
+
+I have made 
+
+### Dependencies
+Python Version: >= 3.6
+Flask version: 2.1.1
+web3.py version: 5.29
+Solidity version: 8.3
+Truffle version: 5.5.2
+Ganache version: 7.0.1
 
 ### RUN
 - `truffle compile`
-- `truffle migrate`
 - `pip install -r requirement.txt` 
 - `python src/app.py` 
 

@@ -20,7 +20,7 @@ contract TestAdoption {
         Assert.equal(
             size,
             1,
-            "Addition of the expected pet should match what is returned."
+            "Pet list size should be the same as what is returned"
         );
 
     }
@@ -31,7 +31,7 @@ contract TestAdoption {
         Assert.equal(
             returnedId,
             expectedPetId,
-            "Adoption of the expected pet should match what is returned."
+            "Adoption of the expected pet ID should match what is returned."
         );
     }
 }
