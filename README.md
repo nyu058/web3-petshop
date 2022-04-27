@@ -33,7 +33,7 @@ To run the unit tests:
 #### Using Docker 
 ```
 docker build -t petshop-python .
-docker run -p 5001:5001 -it petshop-python
+docker run -p 5001:5001 -d petshop-python
 ```
 The UI can be accessed at http://localhost:5001/
 
