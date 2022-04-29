@@ -159,10 +159,11 @@ def adopt():
     adopted = contract_instance.getAllAdoptedPets()
     # update cache and statistics
     for pet in pets_data:
-        if pet['id'] in adopted:
+        if pet['id'] == id:
             pet['adopted'] = True
             pet['adopted_on'] = strftime("%Y-%m-%d %H:%M:%S", localtime())
             pet['adopter'] = account
+            break
     update_stats()
     return redirect(url_for("index", account=account))
 
